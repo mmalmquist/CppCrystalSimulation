@@ -12,6 +12,6 @@ any of
 - Supports GUI and CLI mode.
 - Supports different sizes
 <br>
-<code>./build/CppCrystalSimulation mode=[mode] size=[size]</code>
+<code>$ ./build/CppCrystalSimulation mode=[mode] size=[size]</code>
 <br>
 
