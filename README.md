@@ -4,8 +4,8 @@ Requires GTK+ 3.<br>
 
 ## Build
 any of
-+ <code>make debug</code>
-+ <code>make release</code>
++ <code>$ make debug</code>
++ <code>$ make release</code>
 <br>
 
 ## Run
