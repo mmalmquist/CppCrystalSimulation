@@ -76,7 +76,7 @@ main(int argc,
      char *argv[])
 {
   int size = 0;
-  char mode[32]; bzero(mode, 32);
+  char mode[32];
   for (int i = 1; i < argc; ++i) {
     if (strncmp("mode=", argv[i] , 5) == 0) {
       strncpy(mode, argv[i]+5, 32);
