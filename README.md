@@ -3,9 +3,16 @@ My C++ (with GTK+) implementation of a crystal simulation<br>
 Requires GTK+ 3.<br>
 
 ## Build
-any of
-+ <code>$ make debug</code>
-+ <code>$ make release</code>
+### GNU/Linux
+Any of:
++ <code>$ ./make_build debug</code>
++ <code>$ ./make_build release</code>
+<br>
+### Windows
+MSYS2 should be used to get a working environment.<br>
+In the MinGW command prompt you can use any of
++ <code>$ ./make_build debug -G"MSYS Makefiles"</code>
++ <code>$ ./make_build release -G"MSYS Makefiles"</code>
 <br>
 
 ## Run
@@ -14,4 +21,5 @@ any of
 <br>
 <code>$ ./build/CppCrystalSimulation mode=[mode] size=[size]</code>
 <br>
+Note that on Window you should use the MinGW command prompt to run.
 
