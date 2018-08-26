@@ -10,27 +10,18 @@ c_run_some_steps(gpointer data)
 {
   return ((CrystalControl *)data)->run_some_steps();
 }
-static gboolean
-c_change_speed_event_cb(GtkWidget *widget,
-			GdkEventMotion *event,
-			gpointer data)
-{ (void)widget; (void)event;
-  return ((CrystalControl *)data)->change_speed_event_cb();
-}
-static gboolean
-c_start_event_cb(GtkWidget *widget,
-		 GdkEventMotion *event,
-		 gpointer data)
-{ (void)widget; (void)event;
-  return ((CrystalControl *)data)->start_event_cb();
-}
-static gboolean
-c_stop_event_cb(GtkWidget *widget,
-		GdkEventMotion *event,
-		gpointer data)
-{ (void)widget; (void)event;
-  return ((CrystalControl *)data)->stop_event_cb();
-}
+#define C_CB_FN(FN) c_##FN
+#define CLICK_CB_DEF(FN, T)			\
+  static gboolean				\
+  C_CB_FN(FN)(GtkWidget *widget,			\
+	    gpointer data)			\
+  { (void)widget;				\
+    return ((T)data)->FN();			\
+  }
+
+CLICK_CB_DEF(change_speed_event_cb, CrystalControl *)
+CLICK_CB_DEF(start_event_cb, CrystalControl *)
+CLICK_CB_DEF(stop_event_cb, CrystalControl *)
 
 static double
 get_time() {
@@ -186,11 +177,11 @@ CrystalControl::init_ui(GtkBuilder *builder)
   m_cv->set_gtk_widget(GTK_WIDGET(gtk_builder_get_object(builder, "bath")));
   
   GtkWidget *start_btn = GTK_WIDGET(gtk_builder_get_object(builder, "start_btn"));
-  g_signal_connect(start_btn, "clicked", G_CALLBACK(c_start_event_cb), this);
+  g_signal_connect(start_btn, "clicked", G_CALLBACK(C_CB_FN(start_event_cb)), this);
   GtkWidget *stop_btn = GTK_WIDGET(gtk_builder_get_object(builder, "stop_btn"));
-  g_signal_connect(stop_btn, "clicked", G_CALLBACK(c_stop_event_cb), this);
+  g_signal_connect(stop_btn, "clicked", G_CALLBACK(C_CB_FN(stop_event_cb)), this);
   GtkWidget *change_speed_btn = GTK_WIDGET(gtk_builder_get_object(builder, "chspeed_btn"));
-  g_signal_connect(change_speed_btn, "clicked", G_CALLBACK(c_change_speed_event_cb), this);
+  g_signal_connect(change_speed_btn, "clicked", G_CALLBACK(C_CB_FN(change_speed_event_cb)), this);
   
   m_main_app_window = GTK_WIDGET(gtk_builder_get_object(builder, "app-window"));
 }
